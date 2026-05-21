@@ -10,6 +10,9 @@ group = mod_group_id
 
 repositories {
     mavenLocal()
+    maven {
+        url = "https://maven.teamabnormals.com"
+    }
 }
 
 base {
@@ -96,6 +99,7 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 
 dependencies {
+    implementation("com.teamabnormals:blueprint:1.21.1-8.1.0")
     // Example mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
     // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"

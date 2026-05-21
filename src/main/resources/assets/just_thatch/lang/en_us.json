@@ -1,5 +1,14 @@
 {
-  "itemGroup.just_thatch": "Example Mod Tab",
-  "block.just_thatch.example_block": "Example Block",
-  "item.just_thatch.example_item": "Example Item"
+  "itemGroup.just_thatch": "Just Thatch",
+  "block.just_thatch.grass_thatch": "Grass Thatch",
+  "block.just_thatch.grass_thatch_slab": "Grass Thatch Slab",
+  "block.just_thatch.grass_thatch_stairs": "Grass Thatch Stairs",
+
+  "block.just_thatch.wheat_thatch": "Wheat Thatch",
+  "block.just_thatch.wheat_thatch_slab": "Wheat Thatch Slab",
+  "block.just_thatch.wheat_thatch_stairs": "Wheat Thatch Stairs",
+
+  "block.just_thatch.burnt_thatch": "Burnt Thatch",
+  "block.just_thatch.burnt_thatch_slab": "Burnt Thatch Slab",
+  "block.just_thatch.burnt_thatch_stairs": "Burnt Thatch Stairs"
 }

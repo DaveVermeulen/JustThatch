@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0,
+  "group": "burnt_thatch",
+  "ingredient": {
+    "item": "just_thatch:grass_thatch"
+  },
+  "result": {
+    "id": "just_thatch:burnt_thatch"
+  }
+}

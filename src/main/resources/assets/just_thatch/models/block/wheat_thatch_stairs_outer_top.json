@@ -2,7 +2,7 @@
 	"render_type": "minecraft:cutout",
 	"parent": "blueprint:block/template_thatch_stairs_outer_top",
 	"textures": {
-		"thatch": "just_thatch:block/beachgrass_thatch",
-		"extrudes": "just_thatch:block/beachgrass_thatch_extrudes"
+		"thatch": "just_thatch:block/wheat_thatch",
+		"extrudes": "just_thatch:block/wheat_thatch_extrudes"
 	}
 }

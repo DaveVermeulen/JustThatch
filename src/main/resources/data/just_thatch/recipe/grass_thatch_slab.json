@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "#": {
-      "item": "just_thatch:burnt_thatch"
+      "item": "just_thatch:grass_thatch"
     }
   },
   "pattern": [
@@ -11,6 +11,6 @@
   ],
   "result": {
     "count": 6,
-    "id": "just_thatch:burnt_thatch_slab"
+    "id": "just_thatch:grass_thatch_slab"
   }
 }

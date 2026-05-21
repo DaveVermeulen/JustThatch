@@ -1,5 +1,5 @@
 {
     "variants": {
-        "": { "model": "just_thatch:block/beachgrass_thatch" }
+        "": { "model": "just_thatch:block/wheat_thatch" }
     }
 }

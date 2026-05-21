@@ -3,11 +3,11 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0,
-  "group": "burnt_thatch_slab",
+  "group": "burnt_thatch_stairs",
   "ingredient": {
-    "item": "just_thatch:wheat_thatch_slab"
+    "item": "just_thatch:wheat_thatch_stairs"
   },
   "result": {
-    "id": "just_thatch:burnt_thatch_slab"
+    "id": "just_thatch:burnt_thatch_stairs"
   }
 }

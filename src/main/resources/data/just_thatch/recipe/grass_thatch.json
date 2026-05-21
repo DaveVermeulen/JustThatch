@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "#": {
-      "item": "upgrade_aquatic:beachgrass"
+      "item": "minecraft:short_grass"
     }
   },
   "pattern": [
@@ -12,6 +12,6 @@
   ],
   "result": {
     "count": 4,
-    "id": "upgrade_aquatic:beachgrass_thatch"
+    "id": "just_thatch:grass_thatch"
   }
 }

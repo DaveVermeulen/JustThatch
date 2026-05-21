@@ -1,7 +1,7 @@
 {
     "variants": {
-        "type=bottom": { "model": "just_thatch:block/beachgrass_thatch_slab" },
-        "type=top": { "model": "just_thatch:block/beachgrass_thatch_slab_top" },
-        "type=double": { "model": "just_thatch:block/beachgrass_thatch" }
+        "type=bottom": { "model": "just_thatch:block/wheat_thatch_slab" },
+        "type=top": { "model": "just_thatch:block/wheat_thatch_slab_top" },
+        "type=double": { "model": "just_thatch:block/wheat_thatch" }
     }
 }

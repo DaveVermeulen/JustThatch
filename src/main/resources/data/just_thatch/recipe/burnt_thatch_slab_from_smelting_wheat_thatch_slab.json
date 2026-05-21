@@ -5,7 +5,7 @@
   "experience": 0,
   "group": "burnt_thatch_slab",
   "ingredient": {
-    "item": "just_thatch:grass_thatch_slab"
+    "item": "just_thatch:wheat_thatch_slab"
   },
   "result": {
     "id": "just_thatch:burnt_thatch_slab"

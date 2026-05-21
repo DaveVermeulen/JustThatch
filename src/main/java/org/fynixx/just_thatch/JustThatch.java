@@ -1,17 +1,20 @@
 package org.fynixx.just_thatch;
 
 import com.mojang.logging.LogUtils;
+import com.teamabnormals.blueprint.common.block.thatch.ThatchBlock;
+import com.teamabnormals.blueprint.common.block.thatch.ThatchSlabBlock;
+import com.teamabnormals.blueprint.common.block.thatch.ThatchStairBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.api.distmarker.Dist;
@@ -28,13 +31,14 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.slf4j.Logger;
 
+import java.util.function.Supplier;
+
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
-@Mod(Just_Thatch.MODID)
-public class Just_Thatch {
+@Mod(JustThatch.MODID)
+public class JustThatch {
     // Define mod id in a common place for everything to reference
     public static final String MODID = "just_thatch";
     // Directly reference a slf4j logger
@@ -46,22 +50,46 @@ public class Just_Thatch {
     // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "just_thatch" namespace
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
-    // Creates a new Block with the id "just_thatch:example_block", combining the namespace and path
-    public static final DeferredBlock<Block> EXAMPLE_BLOCK = BLOCKS.registerSimpleBlock("example_block", BlockBehaviour.Properties.of().mapColor(MapColor.STONE));
-    // Creates a new BlockItem with the id "just_thatch:example_block", combining the namespace and path
-    public static final DeferredItem<BlockItem> EXAMPLE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("example_block", EXAMPLE_BLOCK);
+    public static final BlockBehaviour.Properties THATCH_PROPERTIES = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).strength(0.5F).sound(SoundType.GRASS).noOcclusion();
 
-    // Creates a new food item with the id "just_thatch:example_id", nutrition 1 and saturation 2
-    public static final DeferredItem<Item> EXAMPLE_ITEM = ITEMS.registerSimpleItem("example_item", new Item.Properties().food(new FoodProperties.Builder().alwaysEdible().nutrition(1).saturationModifier(2f).build()));
+    public static final DeferredBlock<Block> GRASS_THATCH = registerBlock("grass_thatch", () -> new ThatchBlock(JustThatch.THATCH_PROPERTIES));
+    public static final DeferredBlock<Block> GRASS_THATCH_SLAB = registerBlock("grass_thatch_slab", () -> new ThatchSlabBlock(JustThatch.THATCH_PROPERTIES));
+    public static final DeferredBlock<Block> GRASS_THATCH_STAIRS = registerBlock("grass_thatch_stairs", () -> new ThatchStairBlock(GRASS_THATCH.get().defaultBlockState(), JustThatch.THATCH_PROPERTIES));
+
+    public static final DeferredBlock<Block> WHEAT_THATCH = registerBlock("wheat_thatch", () -> new ThatchBlock(JustThatch.THATCH_PROPERTIES));
+    public static final DeferredBlock<Block> WHEAT_THATCH_SLAB = registerBlock("wheat_thatch_slab", () -> new ThatchSlabBlock(JustThatch.THATCH_PROPERTIES));
+    public static final DeferredBlock<Block> WHEAT_THATCH_STAIRS = registerBlock("wheat_thatch_stairs", () -> new ThatchStairBlock(WHEAT_THATCH.get().defaultBlockState(), JustThatch.THATCH_PROPERTIES));
+
+    public static final DeferredBlock<Block> BURNT_THATCH = registerBlock("burnt_thatch", () -> new ThatchBlock(JustThatch.THATCH_PROPERTIES));
+    public static final DeferredBlock<Block> BURNT_THATCH_SLAB = registerBlock("burnt_thatch_slab", () -> new ThatchSlabBlock(JustThatch.THATCH_PROPERTIES));
+    public static final DeferredBlock<Block> BURNT_THATCH_STAIRS = registerBlock("burnt_thatch_stairs", () -> new ThatchStairBlock(BURNT_THATCH.get().defaultBlockState(), JustThatch.THATCH_PROPERTIES));
+
+    private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
+        DeferredBlock<T> toReturn = BLOCKS.register(name, block);
+        registerBlockItem(name, toReturn);
+        return toReturn;
+    }
+
+    private static <T extends Block> void registerBlockItem(String name, DeferredBlock<T> block) {
+        JustThatch.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+    }
 
     // Creates a creative tab with the id "just_thatch:example_tab" for the example item, that is placed after the combat tab
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder().title(Component.translatable("itemGroup.just_thatch")).withTabsBefore(CreativeModeTabs.COMBAT).icon(() -> EXAMPLE_ITEM.get().getDefaultInstance()).displayItems((parameters, output) -> {
-        output.accept(EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("just_thatch_tab", () -> CreativeModeTab.builder().title(Component.translatable("itemGroup.just_thatch")).withTabsBefore(CreativeModeTabs.COMBAT).icon(() -> WHEAT_THATCH.asItem().getDefaultInstance()).displayItems((parameters, output) -> {
+        output.accept(GRASS_THATCH);
+        output.accept(GRASS_THATCH_STAIRS);
+        output.accept(GRASS_THATCH_SLAB);
+        output.accept(WHEAT_THATCH);
+        output.accept(WHEAT_THATCH_STAIRS);
+        output.accept(WHEAT_THATCH_SLAB);
+        output.accept(BURNT_THATCH);
+        output.accept(BURNT_THATCH_STAIRS);
+        output.accept(BURNT_THATCH_SLAB);
     }).build());
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
-    public Just_Thatch(IEventBus modEventBus, ModContainer modContainer) {
+    public JustThatch(IEventBus modEventBus, ModContainer modContainer) {
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
@@ -86,35 +114,26 @@ public class Just_Thatch {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         // Some common setup code
-        LOGGER.info("HELLO FROM COMMON SETUP");
 
-        if (Config.logDirtBlock) LOGGER.info("DIRT BLOCK >> {}", BuiltInRegistries.BLOCK.getKey(Blocks.DIRT));
-
-        LOGGER.info(Config.magicNumberIntroduction + Config.magicNumber);
-
-        Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
     }
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) event.accept(EXAMPLE_BLOCK_ITEM);
+//        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) event.accept(EXAMPLE_BLOCK_ITEM);
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
         // Do something when the server starts
-        LOGGER.info("HELLO from server starting");
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-    @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = MODID, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             // Some client setup code
-            LOGGER.info("HELLO FROM CLIENT SETUP");
-            LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
         }
     }
 }
