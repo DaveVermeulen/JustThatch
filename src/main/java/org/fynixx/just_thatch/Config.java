@@ -1,4 +1,4 @@
-package org.tryrodave.just_thatch;
+package org.fynixx.just_thatch;
 
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;

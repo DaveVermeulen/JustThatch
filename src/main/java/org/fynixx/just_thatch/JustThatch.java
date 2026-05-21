@@ -1,4 +1,4 @@
-package org.tryrodave.just_thatch;
+package org.fynixx.just_thatch;
 
 import com.teamabnormals.blueprint.common.block.thatch.ThatchBlock;
 import com.teamabnormals.blueprint.common.block.thatch.ThatchSlabBlock;
