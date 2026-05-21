@@ -1,6 +1,5 @@
 package org.tryrodave.just_thatch;
 
-import com.mojang.logging.LogUtils;
 import com.teamabnormals.blueprint.common.block.thatch.ThatchBlock;
 import com.teamabnormals.blueprint.common.block.thatch.ThatchSlabBlock;
 import com.teamabnormals.blueprint.common.block.thatch.ThatchStairBlock;
@@ -29,7 +28,6 @@ import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import org.slf4j.Logger;
 
 import java.util.function.Supplier;
 
@@ -38,8 +36,6 @@ import java.util.function.Supplier;
 public class JustThatch {
     // Define mod id in a common place for everything to reference
     public static final String MODID = "just_thatch";
-    // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
     // Create a Deferred Register to hold Blocks which will all be registered under the "just_thatch" namespace
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
     // Create a Deferred Register to hold Items which will all be registered under the "just_thatch" namespace
@@ -72,7 +68,7 @@ public class JustThatch {
     }
 
     // Creates a creative tab with the id "just_thatch:example_tab" for the example item, that is placed after the combat tab
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("just_thatch_tab", () -> CreativeModeTab.builder().title(Component.translatable("itemGroup.just_thatch")).withTabsBefore(CreativeModeTabs.COMBAT).icon(() -> WHEAT_THATCH.asItem().getDefaultInstance()).displayItems((parameters, output) -> {
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> THATCH_TAB = CREATIVE_MODE_TABS.register("just_thatch_tab", () -> CreativeModeTab.builder().title(Component.translatable("itemGroup.just_thatch")).withTabsBefore(CreativeModeTabs.COMBAT).icon(() -> WHEAT_THATCH.asItem().getDefaultInstance()).displayItems((parameters, output) -> {
         output.accept(GRASS_THATCH);
         output.accept(GRASS_THATCH_STAIRS);
         output.accept(GRASS_THATCH_SLAB);
