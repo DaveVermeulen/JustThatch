@@ -1,0 +1,8 @@
+{
+	"render_type": "minecraft:cutout",
+	"parent": "blueprint:block/template_thatch_slab",
+	"textures": {
+		"thatch": "just_thatch:block/grass_thatch",
+		"extrudes": "just_thatch:block/grass_thatch_extrudes"
+	}
+}

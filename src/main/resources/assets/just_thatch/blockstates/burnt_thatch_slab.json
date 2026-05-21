@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "just_thatch:block/grass_thatch_slab" },
+        "type=top": { "model": "just_thatch:block/grass_thatch_slab_top" },
+        "type=double": { "model": "just_thatch:block/grass_thatch" }
+    }
+}
